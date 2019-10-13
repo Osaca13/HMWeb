@@ -1,0 +1,95 @@
+﻿@model IEnumerable<HMWeb.Biblioteca.Modelos.Maquinarias>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="alert-info">Listado de Maquinarias</h1>
+
+<p>
+    <a asp-action="Create">Crear nueva maquinaria</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaBaja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UltimaLecturaKms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UltimaLecturaHoras)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndicaKH)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.IdCentroNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEmpresaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdServicioNavigation)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaBaja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UltimaLecturaKms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UltimaLecturaHoras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndicaKH)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.IdCentroNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmpresaNavigation.IdEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdServicioNavigation.IdServicio)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdMaquinaria">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdMaquinaria">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMaquinaria">Borrar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
