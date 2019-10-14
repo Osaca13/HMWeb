@@ -24,6 +24,7 @@ namespace HMWeb.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddDbContext<HMContext>(optionsAction: options => Configuration.GetConnectionString("HMConnection"));
         }
 
@@ -43,13 +44,22 @@ namespace HMWeb.Core
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("Maquinarias", "{controller=Maquinarias}/{action=Index}/{id?}");
             });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("Home", "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
