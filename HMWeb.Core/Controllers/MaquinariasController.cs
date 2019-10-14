@@ -9,6 +9,7 @@ using HMWeb.Biblioteca.Modelos;
 
 namespace HMWeb.Core.Controllers
 {
+    
     public class MaquinariasController : Controller
     {
         private readonly HMContext _context;
@@ -21,6 +22,9 @@ namespace HMWeb.Core.Controllers
         // GET: Maquinarias
         public async Task<IActionResult> Index()
         {
+            ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
+            ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
+            ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
             var hMContext = _context.Maquinarias.Include(m => m.IdCentroNavigation).Include(m => m.IdEmpresaNavigation).Include(m => m.IdServicioNavigation);
             return View(await hMContext.ToListAsync());
         }
@@ -73,6 +77,14 @@ namespace HMWeb.Core.Controllers
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio", maquinarias.IdServicio);
             return View(maquinarias);
         }
+
+        //public IActionResult _Edit()
+        //{
+        //    ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
+        //    ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
+        //    ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
+        //    return View();
+        //}
 
         // GET: Maquinarias/Edit/5
         public async Task<IActionResult> Edit(int? id)

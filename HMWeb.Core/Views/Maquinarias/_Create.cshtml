@@ -1,0 +1,66 @@
+﻿@model HMWeb.Biblioteca.Modelos.Maquinarias
+
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdEmpresa" class="control-label"></label>
+                <select asp-for="IdEmpresa" class ="form-control" asp-items="ViewBag.IdEmpresa"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdCentro" class="control-label"></label>
+                <select asp-for="IdCentro" class ="form-control" asp-items="ViewBag.IdCentro"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdServicio" class="control-label"></label>
+                <select asp-for="IdServicio" class ="form-control" asp-items="ViewBag.IdServicio"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroSerie" class="control-label"></label>
+                <input asp-for="NumeroSerie" class="form-control" />
+                <span asp-validation-for="NumeroSerie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Matricula" class="control-label"></label>
+                <input asp-for="Matricula" class="form-control" />
+                <span asp-validation-for="Matricula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaAlta" class="control-label"></label>
+                <input asp-for="FechaAlta" class="form-control" />
+                <span asp-validation-for="FechaAlta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaBaja" class="control-label"></label>
+                <input asp-for="FechaBaja" class="form-control" />
+                <span asp-validation-for="FechaBaja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Activa" class="control-label"></label>
+                <input asp-for="Activa" class="form-control" />
+                <span asp-validation-for="Activa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UltimaLecturaKms" class="control-label"></label>
+                <input asp-for="UltimaLecturaKms" class="form-control" />
+                <span asp-validation-for="UltimaLecturaKms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UltimaLecturaHoras" class="control-label"></label>
+                <input asp-for="UltimaLecturaHoras" class="form-control" />
+                <span asp-validation-for="UltimaLecturaHoras" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndicaKH" class="control-label"></label>
+                <input asp-for="IndicaKH" class="form-control" />
+                <span asp-validation-for="IndicaKH" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

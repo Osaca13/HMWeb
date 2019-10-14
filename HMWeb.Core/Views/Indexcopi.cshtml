@@ -1,8 +1,7 @@
 ﻿@model IEnumerable<HMWeb.Biblioteca.Modelos.Maquinarias>
 
 @{
-    ViewData["Title"] = "Index";    
-    
+    ViewData["Title"] = "Index";
 }
 
 <h1 class="alert-info">Listado de Maquinarias</h1>
@@ -37,7 +36,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.IndicaKH)
             </th>
-         
+            @*<th>
+                @Html.DisplayNameFor(model => model.IdCentroNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEmpresaNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdServicioNavigation)
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -68,39 +75,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IndicaKH)
             </td>
-          
-        <td>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" model="" data-toggle="modal" data-target="#exampleModal">
-                Editar
-            </button>           
-                             
-            <a asp-action="Details" asp-route-id="@item.IdMaquinaria">Detalles</a> |
-            <a asp-action="Delete" asp-route-id="@item.IdMaquinaria">Borrar</a>
-        </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.IdCentroNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmpresaNavigation.IdEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdServicioNavigation.IdServicio)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdMaquinaria">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdMaquinaria">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMaquinaria">Borrar</a>
+            </td>
         </tr>
-        
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <partial name="_Edit.cshtml" model="@Model.Where(m => m.IdMaquinaria == item.IdMaquinaria).FirstOrDefault()"/>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
 }
     </tbody>
 </table>
