@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<HMWeb.Biblioteca.Modelos.Maquinarias>
 
 @{
-    ViewData["Title"] = "Index";    
-    
+    ViewData["Title"] = "Index";
+    var maq = ViewData["Maquinaria"] as HMWeb.Biblioteca.Modelos.Maquinarias;    
+
 }
 
 <h1 class="alert-info">Listado de Maquinarias</h1>
-
 <p>
     <a asp-action="Create">Crear nueva maquinaria</a>
 </p>
@@ -37,70 +37,182 @@
             <th>
                 @Html.DisplayNameFor(model => model.IndicaKH)
             </th>
-         
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.IdEmpresa)
+            </th>
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.IdCentro)
+            </th>
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.IdServicio)
+            </th>
+
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroSerie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaAlta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaBaja)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UltimaLecturaKms)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UltimaLecturaHoras)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IndicaKH)
-            </td>
-          
-        <td>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" model="" data-toggle="modal" data-target="#exampleModal">
-                Editar
-            </button>           
-                             
-            <a asp-action="Details" asp-route-id="@item.IdMaquinaria">Detalles</a> |
-            <a asp-action="Delete" asp-route-id="@item.IdMaquinaria">Borrar</a>
-        </td>
-        </tr>
-        
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <partial name="_Edit.cshtml" model="@Model.Where(m => m.IdMaquinaria == item.IdMaquinaria).FirstOrDefault()"/>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar</button>
+    
+        <tbody id="tableFilas">
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td id="@string.Concat("NumeroSerie",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.NumeroSerie)
+                </td>
+                <td id="@string.Concat("Matricula",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.Matricula)
+                </td>
+                <td id="@string.Concat("FechaAlta",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.FechaAlta)
+                </td>
+                <td id="@string.Concat("FechaBaja",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.FechaBaja)
+                </td>
+                <td id="@string.Concat("Activa",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.Activa)
+                </td>
+                <td id="@string.Concat("UltimaLecturaKms",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.UltimaLecturaKms)
+                </td>
+                <td id="@string.Concat("UltimaLecturaKms",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.UltimaLecturaHoras)
+                </td>
+                <td id="@string.Concat("IndicaKH",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.IndicaKH)
+                </td>
+                <td style="display:none" id="@string.Concat("IdEmpresa",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.IdEmpresa)
+                </td>
+                <td style="display:none" id="@string.Concat("IdCentro",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.IdCentro)
+                </td>
+                <td style="display:none" id="@string.Concat("IdServicio",item.IdMaquinaria.ToString())" data-id="@item.IdMaquinaria">
+                    @Html.DisplayFor(modelItem => item.IdServicio)
+                </td>
+                <td>                   
+
+                    <a id="buttonEdit" data-id="@item.IdMaquinaria" data-toggle="modal" data-target="#editModal" data-whatever="edit"> Editar </a> |
+                    <a asp-action="Details" asp-route-id="@item.IdMaquinaria" data-whatever="details"> Detalles </a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdMaquinaria" data-whatever="delete"> Borrar </a>
+                </td>
+            </tr>                
+                <!--Modal-->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar Maquinaria</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="modalDiv" class="modal-body">
+
+                                <form asp-action="Edit" method="post">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="@maq.IdMaquinaria" ) />
+                                    <div class="form-group">
+                                        <label id="labelEmpresa" asp-for="@maq.IdEmpresa" class="control-label"></label>
+                                        <select id="selectEmpresa" asp-for="@maq.IdEmpresa" class="form-control" asp-items="ViewBag.IdEmpresa"></select>
+                                        <span asp-validation-for="@maq.IdEmpresa" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="labelCentro" asp-for="@maq.IdCentro" class="control-label"></label>
+                                        <select id="selectCentro" asp-for="@maq.IdCentro" class="form-control" asp-items="ViewBag.IdCentro"></select>
+                                        <span asp-validation-for="@maq.IdCentro" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="labelServicio" asp-for="@maq.IdServicio" class="control-label"></label>
+                                        <select id="selectServicio" asp-for="@maq.IdServicio" class="form-control" asp-items="ViewBag.IdServicio"></select>
+                                        <span asp-validation-for="@maq.IdServicio" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="labelNumeroSerie" asp-for="@maq.NumeroSerie" class="control-label"></label>
+                                        <input id="inputNumeroSerie" name="ns" asp-for="@maq.NumeroSerie" class="form-control" />
+                                        <span asp-validation-for="@maq.NumeroSerie" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="labelMatricula" asp-for="@maq.Matricula" class="control-label"></label>
+                                        <input id="inputMatricula" asp-for="@maq.Matricula" class="form-control" />
+                                        <span asp-validation-for="@maq.Matricula" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="labelFechaAlta" asp-for="@maq.FechaAlta" class="control-label"></label>
+                                        <input id="inputFechaAlta" asp-for="@maq.FechaAlta" class="form-control" />
+                                        <span asp-validation-for="@maq.FechaAlta" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@maq.FechaBaja" class="control-label"></label>
+                                        <input asp-for="@maq.FechaBaja" class="form-control" />
+                                        <span asp-validation-for="@maq.FechaBaja" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@maq.Activa" class="control-label"></label>
+                                        <input asp-for="@maq.Activa" class="form-control" />
+                                        <span asp-validation-for="@maq.Activa" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@maq.UltimaLecturaKms" class="control-label"></label>
+                                        <input asp-for="@maq.UltimaLecturaKms" class="form-control" />
+                                        <span asp-validation-for="@maq.UltimaLecturaKms" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@maq.UltimaLecturaHoras" class="control-label"></label>
+                                        <input asp-for="@maq.UltimaLecturaHoras" class="form-control" />
+                                        <span asp-validation-for="@maq.UltimaLecturaHoras" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@maq.IndicaKH" class="control-label"></label>
+                                        <input asp-for="@maq.IndicaKH" class="form-control" />
+                                        <span asp-validation-for="@maq.IndicaKH" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    </div>
+                                </form>                                   
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                @*<button type="submit" class="btn btn-primary">Guardar</button>*@
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        
-}
-    </tbody>
+
+            }
+        </tbody>
+    
 </table>
+
+
+      
+@section Scripts{
+   
+<script>
+    $('#editModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        var recipient = parseInt(button.data('id')) 
+
+        var modal = $(this)
+        
+        var matricula = document.getElementById("Matricula".concat(recipient.toString())).innerText
+        var numeroserie = document.getElementById("NumeroSerie".concat(recipient.toString())).innerText
+        var fechaalta = document.getElementById("FechaAlta".concat(recipient.toString())).innerText?document.getElementById("FechaAlta".concat(recipient.toString())).innerText:""
+        //var fechabaja = document.getElementById("FechaBaja".concat(recipient.toString())).innerText
+        //var activa = document.getElementById("Activa".concat(recipient.toString())).innerText
+        //var ultimaLecturaKms = document.getElementById("UltimaLecturaKms".concat(recipient.toString())).innerText
+        //var ultimaLecturaHoras = document.getElementById("UltimaLecturaHoras".concat(recipient.toString())).innerText
+        modal.find('#modalDiv #inputMatricula').val(matricula)
+        modal.find('#modalDiv #labelMatricula').val(matricula)
+        modal.find('#modalDiv #inputNumeroSerie').val(numeroserie)
+        modal.find('#modalDiv #labelNumeroSerie').val(numeroserie)
+        modal.find('#modalDiv #inputHidden').val(recipient)
+
+    })
+</script>
+
+}
+
+
+

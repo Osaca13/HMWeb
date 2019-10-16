@@ -1,80 +1,82 @@
-﻿@model HMWeb.Biblioteca.Modelos.Maquinarias
+﻿@model IEnumerable<HMWeb.Biblioteca.Modelos.Maquinarias>
 
 @{
-    ViewBag.IdEmpresa = ViewData["IdEmpresa"]; 
-    ViewBag.IdCentro = ViewData["IdCentro"]; 
-    ViewBag.IdServicio = ViewData["IdServicio"];   
+    var idItem = (int)ViewData["Index"];
+    var data = (HMWeb.Biblioteca.Modelos.Maquinarias) Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault();
+    ViewBag.IdEmpresa = ViewData["IdEmpresa"];
+    ViewBag.IdCentro = ViewData["IdCentro"];
+    ViewBag.IdServicio = ViewData["IdServicio"];
 
- }
+}
 
 
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdMaquinaria" />
-            <div class="form-group">
-                <label asp-for="IdEmpresa" class="control-label"></label>
-                <select asp-for="IdEmpresa" class="form-control" asp-items="ViewBag.IdEmpresa"></select>
-                <span asp-validation-for="IdEmpresa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdCentro" class="control-label"></label>
-                <select asp-for="IdCentro" class="form-control" asp-items="ViewBag.IdCentro"></select>
-                <span asp-validation-for="IdCentro" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdServicio" class="control-label"></label>
-                <select asp-for="IdServicio" class="form-control" asp-items="ViewBag.IdServicio"></select>
-                <span asp-validation-for="IdServicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroSerie" class="control-label"></label>
-                <input asp-for="NumeroSerie" class="form-control" />
-                <span asp-validation-for="NumeroSerie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Matricula" class="control-label"></label>
-                <input asp-for="Matricula" class="form-control" />
-                <span asp-validation-for="Matricula" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaAlta" class="control-label"></label>
-                <input asp-for="FechaAlta" class="form-control" />
-                <span asp-validation-for="FechaAlta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaBaja" class="control-label"></label>
-                <input asp-for="FechaBaja" class="form-control" />
-                <span asp-validation-for="FechaBaja" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Activa" class="control-label"></label>
-                <input asp-for="Activa" class="form-control" />
-                <span asp-validation-for="Activa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UltimaLecturaKms" class="control-label"></label>
-                <input asp-for="UltimaLecturaKms" class="form-control" />
-                <span asp-validation-for="UltimaLecturaKms" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UltimaLecturaHoras" class="control-label"></label>
-                <input asp-for="UltimaLecturaHoras" class="form-control" />
-                <span asp-validation-for="UltimaLecturaHoras" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IndicaKH" class="control-label"></label>
-                <input asp-for="IndicaKH" class="form-control" />
-                <span asp-validation-for="IndicaKH" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
-    
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="@data.IdMaquinaria") />
+    <div class="form-group">
+        <label asp-for="@data.IdEmpresa" class="control-label"></label>
+        <select asp-for="@data.IdEmpresa" class="form-control" asp-items="ViewBag.IdEmpresa"></select>
+        <span asp-validation-for="@data.IdEmpresa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().IdCentro" class="control-label"></label>
+        <select asp-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().IdCentro" class="form-control" asp-items="ViewBag.IdCentro"></select>
+        <span asp-validation-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().IdCentro" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.IdServicio" class="control-label"></label>
+        <select asp-for="@data.IdServicio" class="form-control" asp-items="ViewBag.IdServicio"></select>
+        <span asp-validation-for="@data.IdServicio" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.NumeroSerie" class="control-label"></label>
+        <input name="ns" asp-for="@data.NumeroSerie" class="form-control" />
+        <span asp-validation-for="@data.NumeroSerie" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().Matricula" class="control-label"></label>
+        <input asp-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().Matricula" class="form-control" />
+        <span asp-validation-for="@Model.Where(m => m.IdMaquinaria == idItem).FirstOrDefault().Matricula" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.FechaAlta" class="control-label"></label>
+        <input asp-for="@data.FechaAlta" class="form-control" />
+        <span asp-validation-for="@data.FechaAlta" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.FechaBaja" class="control-label"></label>
+        <input asp-for="@data.FechaBaja" class="form-control" />
+        <span asp-validation-for="@data.FechaBaja" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.Activa" class="control-label"></label>
+        <input asp-for="@data.Activa" class="form-control" />
+        <span asp-validation-for="@data.Activa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.UltimaLecturaKms" class="control-label"></label>
+        <input asp-for="@data.UltimaLecturaKms" class="form-control" />
+        <span asp-validation-for="@data.UltimaLecturaKms" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.UltimaLecturaHoras" class="control-label"></label>
+        <input asp-for="@data.UltimaLecturaHoras" class="form-control" />
+        <span asp-validation-for="@data.UltimaLecturaHoras" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@data.IndicaKH" class="control-label"></label>
+        <input asp-for="@data.IndicaKH" class="form-control" />
+        <span asp-validation-for="@data.IndicaKH" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+</form>
 
-@section Scripts 
+
+@section Scripts
 {
-  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-  <script src="~/lib/bootstrap/dist/js/modal.js"></script>
+    <script src="~/lib/bootstrap/dist/js/modal.js"></script>
 }

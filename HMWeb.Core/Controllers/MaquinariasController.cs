@@ -29,6 +29,21 @@ namespace HMWeb.Core.Controllers
             return View(await hMContext.ToListAsync());
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Index(int? id)
+        //{
+        //    ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
+        //    ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
+        //    ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
+             
+        //    var hMContext = await _context.Maquinarias.Include(m => m.IdCentroNavigation).Include(m => m.IdEmpresaNavigation).Include(m => m.IdServicioNavigation).ToListAsync();
+        //    ViewData["Maquinaria"] = hMContext.Find(m => m.IdMaquinaria == id);
+
+
+        //    return View(hMContext);
+        //}
+
+
         // GET: Maquinarias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -78,16 +93,16 @@ namespace HMWeb.Core.Controllers
             return View(maquinarias);
         }
 
-        //public IActionResult _Edit()
-        //{
-        //    ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
-        //    ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
-        //    ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
-        //    return View();
-        //}
+        public IActionResult _Edit()
+        {
+            ViewBag.values = 3.16;
+           
+            
+            return View();
+        }
 
-        // GET: Maquinarias/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+    // GET: Maquinarias/Edit/5
+    public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -95,6 +110,7 @@ namespace HMWeb.Core.Controllers
             }
 
             var maquinarias = await _context.Maquinarias.FindAsync(id);
+            
             if (maquinarias == null)
             {
                 return NotFound();
