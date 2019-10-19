@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HMWeb.Biblioteca.Modelos
 {
-    public partial class HMContext : DbContext
+    public partial class HMContext : DbContext, IHMContext
     {
         public HMContext()
         {

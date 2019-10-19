@@ -25,27 +25,14 @@ namespace HMWeb.Core.Controllers
             ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
             ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
-            var hMContext = _context.Maquinarias.Include(m => m.IdCentroNavigation).Include(m => m.IdEmpresaNavigation).Include(m => m.IdServicioNavigation);
-            return View(await hMContext.ToListAsync());
+            IEnumerable<Maquinarias> hMContext = await _context.Maquinarias.Include(m => m.IdCentroNavigation).Include(m => m.IdEmpresaNavigation).Include(m => m.IdServicioNavigation).ToListAsync();                             
+
+            return View(hMContext);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Index(int? id)
-        //{
-        //    ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
-        //    ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
-        //    ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
-             
-        //    var hMContext = await _context.Maquinarias.Include(m => m.IdCentroNavigation).Include(m => m.IdEmpresaNavigation).Include(m => m.IdServicioNavigation).ToListAsync();
-        //    ViewData["Maquinaria"] = hMContext.Find(m => m.IdMaquinaria == id);
-
-
-        //    return View(hMContext);
-        //}
-
-
         // GET: Maquinarias/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> _Details(int? id)
+        
         {
             if (id == null)
             {
@@ -53,7 +40,7 @@ namespace HMWeb.Core.Controllers
             }
 
             var maquinarias = await _context.Maquinarias
-                .Include(m => m.IdCentroNavigation)
+                .Include(m =>  m.IdCentroNavigation)
                 .Include(m => m.IdEmpresaNavigation)
                 .Include(m => m.IdServicioNavigation)
                 .FirstOrDefaultAsync(m => m.IdMaquinaria == id);
@@ -62,16 +49,16 @@ namespace HMWeb.Core.Controllers
                 return NotFound();
             }
 
-            return View(maquinarias);
+            return PartialView("_Details", maquinarias);
         }
 
         // GET: Maquinarias/Create
-        public IActionResult Create()
+        public IActionResult _Create()
         {
             ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre");
             ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa");
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio");
-            return View();
+            return PartialView("_Create");
         }
 
         // POST: Maquinarias/Create
@@ -79,7 +66,7 @@ namespace HMWeb.Core.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMaquinaria,IdEmpresa,IdCentro,IdServicio,NumeroSerie,Matricula,FechaAlta,FechaBaja,Activa,UltimaLecturaKms,UltimaLecturaHoras,IndicaKH")] Maquinarias maquinarias)
+        public async Task<IActionResult> _Create([Bind("IdMaquinaria,IdEmpresa,IdCentro,IdServicio,NumeroSerie,Matricula,FechaAlta,FechaBaja,Activa,UltimaLecturaKms,UltimaLecturaHoras,IndicaKH")] Maquinarias maquinarias)
         {
             if (ModelState.IsValid)
             {
@@ -90,19 +77,12 @@ namespace HMWeb.Core.Controllers
             ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre", maquinarias.IdCentro);
             ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa", maquinarias.IdEmpresa);
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio", maquinarias.IdServicio);
-            return View(maquinarias);
+            return RedirectToAction("Index");
         }
 
-        public IActionResult _Edit()
-        {
-            ViewBag.values = 3.16;
-           
-            
-            return View();
-        }
-
-    // GET: Maquinarias/Edit/5
-    public async Task<IActionResult> Edit(int? id)
+       
+        // GET: Maquinarias/Edit/5
+        public async Task<IActionResult> _Edit(int? id)
         {
             if (id == null)
             {
@@ -118,7 +98,7 @@ namespace HMWeb.Core.Controllers
             ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre", maquinarias.IdCentro);
             ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa", maquinarias.IdEmpresa);
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio", maquinarias.IdServicio);
-            return View(maquinarias);
+            return PartialView("_Edit", maquinarias);
         }
 
         // POST: Maquinarias/Edit/5
@@ -126,12 +106,8 @@ namespace HMWeb.Core.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMaquinaria,IdEmpresa,IdCentro,IdServicio,NumeroSerie,Matricula,FechaAlta,FechaBaja,Activa,UltimaLecturaKms,UltimaLecturaHoras,IndicaKH")] Maquinarias maquinarias)
+        public async Task<IActionResult> _Edit(int id, [Bind("IdMaquinaria,IdEmpresa,IdCentro,IdServicio,NumeroSerie,Matricula,FechaAlta,FechaBaja,Activa,UltimaLecturaKms,UltimaLecturaHoras,IndicaKH")] Maquinarias maquinarias)
         {
-            if (id != maquinarias.IdMaquinaria)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -156,7 +132,7 @@ namespace HMWeb.Core.Controllers
             ViewData["IdCentro"] = new SelectList(_context.Centros, "IdCentro", "Nombre", maquinarias.IdCentro);
             ViewData["IdEmpresa"] = new SelectList(_context.Empresas, "IdEmpresa", "IdEmpresa", maquinarias.IdEmpresa);
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "IdServicio", maquinarias.IdServicio);
-            return View(maquinarias);
+            return RedirectToAction("Index");
         }
 
         // GET: Maquinarias/Delete/5
@@ -177,9 +153,9 @@ namespace HMWeb.Core.Controllers
                 return NotFound();
             }
 
-            return View(maquinarias);
+            return View( maquinarias);
         }
-
+ 
         // POST: Maquinarias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -1,7 +1,9 @@
 ﻿@model HMWeb.Biblioteca.Modelos.Maquinarias
 
-
-        <form asp-action="Create" method="post">
+<h4>Crear nueva maquinaria</h4>
+<div class="row">
+    <div class="table-responsive-sm container-fluid">
+        <form asp-action="_Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IdEmpresa" class="control-label"></label>
@@ -56,10 +58,13 @@
                 <span asp-validation-for="IndicaKH" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
-    
+    </div>
+</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
